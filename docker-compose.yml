@@ -1,0 +1,16 @@
+version: "3.7"
+
+# 'context .' means that we use Dockerfile in our root directory of the app
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+# maps our django project app to the folder 'app' in the docker container. Allows us to make changes in the docker container in real time
+    volumes:
+      - ./app:/app
+# dev server (not for deployment yet)
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DEBUG=1
